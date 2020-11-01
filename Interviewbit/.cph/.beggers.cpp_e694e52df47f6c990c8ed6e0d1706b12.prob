@@ -1,0 +1,1 @@
+{"name":"Local: beggers","url":"d:\\Coding\\CODING-SOLUTIONS\\Interviewbit\\beggers.cpp","tests":[{"id":1604208711511,"input":"5\n3\n1 2 10\n2 3 20\n2 5 25","output":"10 55 45 25 25"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Coding\\CODING-SOLUTIONS\\Interviewbit\\beggers.cpp","group":"local","local":true}
