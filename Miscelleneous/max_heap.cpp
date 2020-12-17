@@ -28,16 +28,22 @@ void heapify(ll i,ll n,vi &heap){
 }
 
 void formHeap(ll n,vi &heap){
-    for(ll i=(n-1)/2;i>=0;--i)
+    for(ll i=(n-1)/2;i>=0;--i){
+        print(heap);
+        cout<<"\n";
         heapify(i,n,heap);
+    }
+        
 }
 
 void solve(){
     ll n;cin>>n;
     vi heap;
     forn(n){ll temp;cin>>temp;heap.pb(temp);}
+    cout<<"Step By step process of heapify:\n";
     formHeap(n,heap);
-    print(heap);
+    
+    //print(heap);
     cout<<"\n";
     if(is_heap(heap.begin(),heap.end()))
         cout<<"Formed successfully!:)";
