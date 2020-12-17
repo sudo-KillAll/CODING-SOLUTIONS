@@ -38,6 +38,12 @@ void solve(){
     forn(n){ll temp;cin>>temp;heap.pb(temp);}
     formHeap(n,heap);
     print(heap);
+    cout<<"\n";
+    if(is_heap(heap.begin(),heap.end()))
+        cout<<"Formed successfully!:)";
+    else
+        cout<<"Work Hard;)";
+
 }
 
 int main(){
