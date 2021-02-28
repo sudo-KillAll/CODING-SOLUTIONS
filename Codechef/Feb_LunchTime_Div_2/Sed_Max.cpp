@@ -51,7 +51,7 @@ void solve(){
     ll n;cin>>n;
     vi v;input(v,n);
     unordered_set<ll> ans;
-    vi left(n),right(n);
+    vi left(n),right(n);//left[i] stores the just greater element of v[i] in [0,i-] simil right[i];
     left[0]=-1;
     stack<ll> st;
     st.push(v[0]);
