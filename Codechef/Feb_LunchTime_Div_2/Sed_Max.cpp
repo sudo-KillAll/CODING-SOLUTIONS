@@ -50,23 +50,42 @@ using namespace std;
 void solve(){
     ll n;cin>>n;
     vi v;input(v,n);
-    unordered_set<ll> st;
-    for(ll i=0;i<n-1;i++){
-        ll f=v[i],s=INT_MIN;
-        for(ll j=i+1;j<n;j++){
-            if(v[j]>f){
-                s=max(f,s);
-                f=v[j];
-            }
-            else{
-                s=max(s,v[j]);
-            }
-            st.insert(s-f);
-            
-        }
-        //st.insert(maxi-mini);
+    unordered_set<ll> ans;
+    vi left(n),right(n);
+    left[0]=-1;
+    stack<ll> st;
+    st.push(v[0]);
+    FOR(i,1,n){
+        while(st.size()>0 && st.top()<v[i])
+            st.pop();
+        if(st.size()>0)
+            left[i]=st.top();
+        else
+            left[i]=-1;
+        st.push(v[i]);
     }
-    cout<<st.size()<<"\n";
+    while(!st.empty())
+        st.pop();
+    st.push(v[n-1]);
+    right[n-1]=-1;
+    for(ll i=n-2;i>=0;i--){
+        while(st.size()>0 && st.top()<v[i])
+            st.pop();
+        if(st.size()>0)
+            right[i]=st.top();
+        else
+            right[i]=-1;
+        st.push(v[i]);
+    }
+    FOR(i,0,n){
+        if(left[i]!=-1){
+            ans.insert(left[i]-v[i]);
+        }
+        if(right[i]!=-1){
+            ans.insert(right[i]-v[i]);
+        }
+    }
+    cout<<ans.size()<<"\n";
  
 }
  
