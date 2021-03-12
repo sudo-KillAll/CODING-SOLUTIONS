@@ -46,48 +46,70 @@ $´´´´´´´´´$$$$$$´´´´´´´´´´$$$$´´´´´´´´´´´$
 #define decimal(s) stoll(s,nullptr,2)
 #define rmLead(str) str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
 using namespace std;
-
-// ll knapsack(vector<pair<ll,ll>> &vp,ll n,ll w){
-//     if(n==0)
+//string ans="";
+// ll lcs(string s,string t,ll i,ll j){
+//     if(i>=s.length() || j>=t.length())
 //         return 0;
 //     else{
-//         ll cur_weight = vp[n-1].F,cur_val = vp[n-1].S;
-//         if(w-cur_weight>=0)
-//             return max(cur_val+knapsack(vp,n-1,w-cur_weight),knapsack(vp,n-1,w));
-//         else
-//             return knapsack(vp,n-1,w);
+//         if(s[i]==t[j]){
+//             //ans+=s[i];
+//             return 1+lcs(s,t,i+1,j+1);   
+//         }
+//         else{
+//             ll v1=lcs(s,t,i+1,j),v2=lcs(s,t,i,j+1);
+//             return max(v1,v2);
+//         }
 //     }
 // }
 
+
 void solve(){
-    ll n,w;cin>>n>>w;
-    vector<pair<ll,ll>> vp;
-    for(ll i=0;i<n;i++){
-        ll W,V;cin>>W>>V;
-        pair<ll,ll> p(W,V);
-        vp.pb(p);
-    }
-    ll knapsack[n+1][w+1]={0};
-    for(ll i=0;i<=n;i++)
-        for(ll j=0;j<=w;j++)
-            knapsack[i][j]=0;
+    string s,t;cin>>s>>t;
+    //cout<<lcs(s,t,0,0);
+    //cout<<ans;
+
+    ll n=s.length(),m=t.length();
+
+    ll lcs[n+1][m+1];
+    FOR(i,0,n+1)
+        FOR(j,0,m+1)
+            lcs[i][j]=0;
+    
+
     for(ll i=1;i<=n;i++){
-        for(ll j=1;j<=w;j++){
-            ll cur_weight = vp[i-1].F,cur_val = vp[i-1].S;
-            if(j-cur_weight>=0){
-                knapsack[i][j]=max(cur_val+knapsack[i-1][j-cur_weight],knapsack[i-1][j]);
+        for(ll j=1;j<=m;j++){
+            if(s[i-1]==t[j-1]){
+                lcs[i][j]=1+lcs[i-1][j-1];
             }
             else{
-                knapsack[i][j]=knapsack[i-1][j];
+                lcs[i][j]=max(lcs[i][j-1],lcs[i-1][j]);
             }
         }
     }
-
-
-    ll ans = knapsack[n][w];
+    //cout<<lcs[n][m];
+    // FOR(i,0,n+1){
+    //     FOR(j,0,m+1)
+    //         cout<<lcs[i][j]<<" ";
+    //     cout<<"\n";
+    // }   
+        
+        
+    string ans="";
+    ll i=n,j=m;
+    while(i>=1 && j>=1){
+        if(s[i-1]==t[j-1]){
+            ans+=s[i-1];
+            i--;j--;
+        }
+        else if(lcs[i-1][j]>lcs[i][j-1])
+            i--;
+        else
+            j--;
+    }
+    reverse(ans.begin(),ans.end());
     cout<<ans;
+        
 
-    
 }
  
 int main(){
